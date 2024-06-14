@@ -1,6 +1,6 @@
 'use client'
 import Icon from "@/image/Icon";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Basket from "@/image/Basket";
 import User from "@/image/User";
 import { Stack } from "@mui/material";
@@ -74,10 +74,10 @@ const Navbar = ({onClick}: any) => {
       </Stack>
       <Stack direction={"row"} gap={4} alignItems={"center"}>
         <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase placeholder="Хайх" inputProps={{ 'aria-label': 'search' }} value={input} onChange={(e) => setInput(e.target.value)}/>
+          <SearchIconWrapper>
+            <SearchIcon />
+          </SearchIconWrapper>
+          <StyledInputBase placeholder="Хайх" inputProps={{ 'aria-label': 'search' }} value={input} onChange={(e) => setInput(e.target.value)}/>
         </Search>
         <Button size="medium" sx={{ color: "black", gap: 2 }}><Basket /> Сагс</Button>
         <Button size="medium" sx={{ color: "black", gap: 2 }} onClick={onClick}><User /> Нэвтрэх</Button>
