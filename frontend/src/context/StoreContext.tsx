@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import axios from "axios";
-import { useUser } from "@auth0/nextjs-auth0/client";
-import { usePathname } from "next/navigation";
+import axios from 'axios';
+import { useUser } from '@auth0/nextjs-auth0/client';
+import { usePathname } from 'next/navigation';
 import {
   createContext,
   useState,
@@ -10,7 +10,7 @@ import {
   Dispatch,
   SetStateAction,
   useEffect,
-} from "react";
+} from 'react';
 
 type FoodItem = {
   id: string;
@@ -56,14 +56,12 @@ type StoreProviderProps = {
 const StoreContextProvider = ({ children }: StoreProviderProps) => {
   const [cartItems, setCartItems] = useState<{ [key: string]: number }>({});
   const [foodData, setFoodData] = useState<FoodItem[]>([]);
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>('');
   const [isActive, setIsActive] = useState<number>(1);
   const [loading, setLoading] = useState(false);
   const [totalItems, setTotalItems] = useState(0);
   const [canOrder, setCanOrder] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const { user } = useUser() as { user: User };
-  const path = usePathname();
 
   const checkTime = () => {
     const currentHour = new Date().getHours();
@@ -72,12 +70,12 @@ const StoreContextProvider = ({ children }: StoreProviderProps) => {
   useEffect(() => {
     const loadCartItems = () => {
       try {
-        const storedCartItems = localStorage.getItem("cartItems");
+        const storedCartItems = localStorage.getItem('cartItems');
         if (storedCartItems) {
           setCartItems(JSON.parse(storedCartItems));
         }
       } catch (error) {
-        console.error("Failed to load cart items:", error);
+        console.error('Failed to load cart items:', error);
         setCartItems({});
       }
     };
@@ -87,9 +85,9 @@ const StoreContextProvider = ({ children }: StoreProviderProps) => {
 
   useEffect(() => {
     if (Object.keys(cartItems).length > 0) {
-      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
     } else {
-      localStorage.removeItem("cartItems");
+      localStorage.removeItem('cartItems');
     }
   }, [cartItems]);
 
@@ -98,7 +96,7 @@ const StoreContextProvider = ({ children }: StoreProviderProps) => {
     setErrorMessage(null);
     try {
       const url = `http://localhost:8000/api/foods?page=${page}&limit=${limit}${
-        categoryId !== undefined ? `&categoryId=${categoryId}` : ""
+        categoryId !== undefined ? `&categoryId=${categoryId}` : ''
       }`;
       const response = await axios.get(url);
 
@@ -109,9 +107,9 @@ const StoreContextProvider = ({ children }: StoreProviderProps) => {
         setFoodData([]);
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error('Error fetching data:', error);
       setFoodData([]);
-      setErrorMessage("Failed to fetch food items. Please try again.");
+      setErrorMessage('Failed to fetch food items. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -119,13 +117,13 @@ const StoreContextProvider = ({ children }: StoreProviderProps) => {
 
   const getCategoryIdByName = (category: number) => {
     const categoryMap: { [key: number]: string } = {
-      1: "Breakfast",
-      2: "Soup",
-      3: "Main Course",
-      4: "Dessert",
+      1: 'Breakfast',
+      2: 'Soup',
+      3: 'Main Course',
+      4: 'Dessert',
     };
 
-    return categoryMap[category] || "Breakfast";
+    return categoryMap[category] || 'Breakfast';
   };
 
   const addToCart = (id: number) => {

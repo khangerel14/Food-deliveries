@@ -1,17 +1,6 @@
 import { useEffect, useState } from "react";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-<<<<<<< HEAD
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-=======
 import toast, { Toaster } from "react-hot-toast";
->>>>>>> 78db383 (Qpay)
 import { useRouter } from "next/navigation";
 
 type InvoiceData = {
@@ -39,42 +28,16 @@ export const InvoiceDisplay = () => {
     return <p>No invoice data available</p>;
   }
 
-<<<<<<< HEAD
-=======
   const checkOut = () => {
     toast.error("Not paid!");
   };
 
->>>>>>> 78db383 (Qpay)
   const qrImg = inv.data?.qr_image;
 
   const back = () => {
     router.push("order", { scroll: false });
   };
   return (
-<<<<<<< HEAD
-    <div className="py-20 mx-auto flex flex-col items-center w-[1230px] max-xl:px-12 h-96 justify-center">
-      <div className="flex justify-start w-[1230px]">
-        <button className="flex items-center gap-2" onClick={back}>
-          <KeyboardBackspaceIcon />
-          back
-        </button>
-      </div>
-      <Dialog>
-        <DialogTrigger>Open</DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Qpay</DialogTitle>
-            <DialogDescription>
-              Scan below QR code from your bank application
-            </DialogDescription>
-            {qrImg && (
-              <img src={`data:image/png;base64,${qrImg}`} alt="QR Code" />
-            )}
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
-=======
     <div className="py-20 mx-auto flex flex-col items-center w-[1230px] max-xl:px-12 h-[600px] justify-center">
       <div className="flex justify-between items-center w-[1230px] py-20">
         <button className="flex items-center gap-2" onClick={back}>
@@ -94,7 +57,6 @@ export const InvoiceDisplay = () => {
       </div>
       <p>Scan below QR code from your bank application</p>
       {qrImg && <img src={`data:image/png;base64,${qrImg}`} alt="QR Code" />}
->>>>>>> 78db383 (Qpay)
     </div>
   );
 };
