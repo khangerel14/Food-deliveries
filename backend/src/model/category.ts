@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes, Model, Optional } from "sequelize";
+import { Sequelize, DataTypes, Model, Optional } from 'sequelize';
 
 type CategoryAttributes = {
   id?: number;
@@ -9,18 +9,18 @@ type CategoryAttributes = {
 };
 
 interface CategoryCreationAttributes
-  extends Optional<CategoryAttributes, "id"> {}
+  extends Optional<CategoryAttributes, 'id'> {}
 
 export class Category
   extends Model<CategoryAttributes, CategoryCreationAttributes>
   implements CategoryAttributes
 {
-  public id!: number;
-  public name!: string;
-  public parentId?: number;
+  public declare id: number;
+  public declare name: string;
+  public declare parentId: number;
 
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  public declare readonly createdAt: Date;
+  public declare readonly updatedAt: Date;
 
   public parentCategory?: Category;
   public children?: Category[];
@@ -43,8 +43,8 @@ export const categoryModel = (sequelize: Sequelize): typeof Category => {
     },
     {
       sequelize,
-      modelName: "Category",
-      tableName: "categories",
+      modelName: 'Category',
+      tableName: 'categories',
       timestamps: true,
     }
   );

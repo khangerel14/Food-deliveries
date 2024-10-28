@@ -1,5 +1,5 @@
-import { Sequelize, DataTypes, Model, Optional } from "sequelize";
-import { categoryModel } from "./category";
+import { Sequelize, DataTypes, Model, Optional } from 'sequelize';
+import { categoryModel } from './category';
 
 type FoodAttributes = {
   id?: number;
@@ -13,22 +13,22 @@ type FoodAttributes = {
   updatedAt?: Date;
 };
 
-interface FoodCreationAttributes extends Optional<FoodAttributes, "id"> {}
+interface FoodCreationAttributes extends Optional<FoodAttributes, 'id'> {}
 
 export class Food
   extends Model<FoodAttributes, FoodCreationAttributes>
   implements FoodAttributes
 {
-  public id!: number;
-  public imgUrl!: string;
-  public name!: string;
-  public description!: string;
-  public price!: number;
-  public assessment!: number;
-  public categoryId!: number;
+  public declare id: number;
+  public declare imgUrl: string;
+  public declare name: string;
+  public declare description: string;
+  public declare price: number;
+  public declare assessment: number;
+  public declare categoryId: number;
 
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  public declare readonly createdAt: Date;
+  public declare readonly updatedAt: Date;
 }
 
 export const foodModel = (sequelize: Sequelize): typeof Food => {
@@ -72,15 +72,15 @@ export const foodModel = (sequelize: Sequelize): typeof Food => {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "categories",
-          key: "id",
+          model: 'categories',
+          key: 'id',
         },
       },
     },
     {
       sequelize,
-      modelName: "Food",
-      tableName: "foods",
+      modelName: 'Food',
+      tableName: 'foods',
       timestamps: true,
     }
   );

@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import { Op, UniqueConstraintError, ValidationError } from "sequelize";
+import { Request, Response } from 'express';
+import { Op, UniqueConstraintError, ValidationError } from 'sequelize';
 
-import db from "../model/index.js";
+import db from '../model/index.js';
 
 const { Food } = db;
 
@@ -17,7 +17,7 @@ export const create = async (req: Request, res: Response) => {
       foods.assessment === undefined ||
       foods.categoryId === undefined
     ) {
-      res.status(400).send({ message: "Мэдээлэл дутуу байна." });
+      res.status(400).send({ message: 'Мэдээлэл дутуу байна.' });
       return;
     }
 
@@ -25,7 +25,7 @@ export const create = async (req: Request, res: Response) => {
     res.status(201).send(data);
   } catch (error) {
     res.status(500).send({
-      message: "Бүтээгдхүүн үүсгэхэд алдаа гарлаа.",
+      message: 'Бүтээгдхүүн үүсгэхэд алдаа гарлаа.',
     });
   }
 };
@@ -36,7 +36,7 @@ export const findAll = async (req: Request, res: Response) => {
     const limit: number = 6;
     const offset: number = (page - 1) * limit;
 
-    const food: string = (req.query.food as string) || "";
+    const food: string = (req.query.food as string) || '';
     const categoryId: string | undefined = req.query.categoryId as string;
 
     let parsedCategoryId: number | undefined;
@@ -47,7 +47,7 @@ export const findAll = async (req: Request, res: Response) => {
       } else {
         return res.status(400).send({
           success: false,
-          message: "Invalid categoryId. Please provide a valid number.",
+          message: 'Invalid categoryId. Please provide a valid number.',
         });
       }
     }
@@ -68,7 +68,7 @@ export const findAll = async (req: Request, res: Response) => {
     if (rows.length === 0) {
       return res.status(404).send({
         success: true,
-        message: "No food items found.",
+        message: 'No food items found.',
         page,
         perPage: limit,
         totalCount: count,
@@ -89,7 +89,7 @@ export const findAll = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).send({
       success: false,
-      message: "Unable to fetch food items.",
+      message: 'Unable to fetch food items.',
     });
   }
 };
@@ -99,7 +99,7 @@ export const findMultiple = async (req: Request, res: Response) => {
     const ids =
       req.query.ids
         ?.toString()
-        .split(",")
+        .split(',')
         .map((id) => Number(id)) || [];
 
     const foods = await Food.findAll({
@@ -115,7 +115,7 @@ export const findMultiple = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).send({
       success: false,
-      message: "Бүтээгдхүүн хүлээн авах боломжгүй.",
+      message: 'Бүтээгдхүүн хүлээн авах боломжгүй.',
     });
   }
 };
@@ -126,13 +126,13 @@ export const deleteFood = async (req: Request, res: Response) => {
   try {
     const num = await Food.destroy({ where: { id } });
     if (num === 1) {
-      res.status(200).send({ message: "Хоол амжилттай устгагдлаа!" });
+      res.status(200).send({ message: 'Хоол амжилттай устгагдлаа!' });
     } else {
       res.status(404).send({ message: `id=${id}-тай хоол олдсонгүй!` });
     }
   } catch (error) {
     res.status(500).send({
-      message: "Устгаж чадсангүй id=" + id,
+      message: 'Устгаж чадсангүй id=' + id,
     });
   }
 };
@@ -144,7 +144,7 @@ export const getAllFood = async (req: Request, res: Response) => {
     if (foods.length === 0) {
       return res.status(404).json({
         success: true,
-        message: "No food items found.",
+        message: 'No food items found.',
         foods: [],
       });
     }
@@ -155,10 +155,10 @@ export const getAllFood = async (req: Request, res: Response) => {
       foods: foods,
     });
   } catch (error) {
-    console.error("Error fetching foods:", error);
+    console.error('Error fetching foods:', error);
     return res
       .status(500)
-      .json({ error: "An error occurred while fetching food items." });
+      .json({ error: 'An error occurred while fetching food items.' });
   }
 };
 
@@ -169,7 +169,7 @@ export const updateFood = async (req: Request, res: Response) => {
 
     const foodItem = await Food.findByPk(id);
     if (!foodItem) {
-      return res.status(404).send({ error: "Food item not found" });
+      return res.status(404).send({ error: 'Food item not found' });
     }
 
     await foodItem.update({
@@ -183,15 +183,15 @@ export const updateFood = async (req: Request, res: Response) => {
     return res.status(200).send(foodItem);
   } catch (error: unknown) {
     if (error instanceof UniqueConstraintError) {
-      return res.status(400).send({ error: "Food name must be unique" });
+      return res.status(400).send({ error: 'Food name must be unique' });
     } else if (error instanceof ValidationError) {
-      return res.status(400).send({ error: "Validation error occurred" });
+      return res.status(400).send({ error: 'Validation error occurred' });
     } else if (error instanceof Error) {
-      console.error("Updating error:", error.message);
-      return res.status(500).send({ error: "An unexpected error occurred." });
+      console.error('Updating error:', error.message);
+      return res.status(500).send({ error: 'An unexpected error occurred.' });
     } else {
-      console.error("Unknown error:", error);
-      return res.status(500).send({ error: "Unknown error occurred." });
+      console.error('Unknown error:', error);
+      return res.status(500).send({ error: 'Unknown error occurred.' });
     }
   }
 };

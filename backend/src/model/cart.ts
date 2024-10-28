@@ -1,7 +1,7 @@
-import { Sequelize, DataTypes, Model, Optional, Association } from "sequelize";
-import { User } from "./user";
-import { Food } from "./food";
-import { Order } from "./order";
+import { Sequelize, DataTypes, Model, Optional, Association } from 'sequelize';
+import { User } from './user';
+import { Food } from './food';
+import { Order } from './order';
 
 type CartAttributes = {
   id?: number;
@@ -13,19 +13,19 @@ type CartAttributes = {
   updatedAt?: Date;
 };
 
-interface CartCreationAttributes extends Optional<CartAttributes, "id"> {}
+interface CartCreationAttributes extends Optional<CartAttributes, 'id'> {}
 
 export class Cart
   extends Model<CartAttributes, CartCreationAttributes>
   implements CartAttributes
 {
-  public id!: number;
-  public auth0Id!: string;
-  public foodId!: number;
-  public quantity!: number;
-  public name!: string;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  public declare id: number;
+  public declare auth0Id: string;
+  public declare foodId: number;
+  public declare quantity: number;
+  public declare name: string;
+  public declare readonly createdAt: Date;
+  public declare readonly updatedAt: Date;
 
   public static associations: {
     user: Association<Cart, User>;
@@ -38,9 +38,9 @@ export class Cart
     Food: typeof Food;
     Order: typeof Order;
   }) {
-    Cart.belongsTo(models.User, { foreignKey: "auth0Id", as: "user" });
-    Cart.belongsTo(models.Food, { foreignKey: "foodId", as: "food" });
-    Cart.belongsTo(models.Order, { foreignKey: "auth0Id", as: "orders" });
+    Cart.belongsTo(models.User, { foreignKey: 'auth0Id', as: 'user' });
+    Cart.belongsTo(models.Food, { foreignKey: 'foodId', as: 'food' });
+    Cart.belongsTo(models.Order, { foreignKey: 'auth0Id', as: 'orders' });
   }
 }
 
@@ -51,16 +51,16 @@ export const cartModel = (sequelize: Sequelize): typeof Cart => {
         type: DataTypes.STRING,
         allowNull: false,
         references: {
-          model: "users",
-          key: "auth0Id",
+          model: 'users',
+          key: 'auth0Id',
         },
       },
       foodId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "foods",
-          key: "id",
+          model: 'foods',
+          key: 'id',
         },
       },
       quantity: {
@@ -74,8 +74,8 @@ export const cartModel = (sequelize: Sequelize): typeof Cart => {
     },
     {
       sequelize,
-      modelName: "Cart",
-      tableName: "carts",
+      modelName: 'Cart',
+      tableName: 'carts',
       timestamps: true,
     }
   );

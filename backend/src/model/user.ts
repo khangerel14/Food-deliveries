@@ -1,5 +1,5 @@
-import { Sequelize, DataTypes, Model, Optional, Association } from "sequelize";
-import { Order } from "./order";
+import { Sequelize, DataTypes, Model, Optional, Association } from 'sequelize';
+import { Order } from './order';
 
 type UserAttributes = {
   id?: number;
@@ -13,22 +13,22 @@ type UserAttributes = {
   updatedAt?: Date;
 };
 
-interface UserCreationAttributes extends Optional<UserAttributes, "id"> {}
+interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
 
 export class User
   extends Model<UserAttributes, UserCreationAttributes>
   implements UserAttributes
 {
-  public id!: number;
-  public auth0Id!: string;
-  public email!: string;
-  public name!: string;
-  public picture?: string;
-  public password!: string;
-  public role?: string;
+  public declare id: number;
+  public declare auth0Id: string;
+  public declare email: string;
+  public declare name: string;
+  public declare picture?: string;
+  public declare password: string;
+  public declare role?: string;
 
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  public declare readonly createdAt: Date;
+  public declare readonly updatedAt: Date;
 
   public static associations: {
     orders: Association<User, Order>;
@@ -36,8 +36,8 @@ export class User
 
   public static associate(models: any) {
     User.hasMany(models.Order, {
-      foreignKey: "auth0Id",
-      as: "orders",
+      foreignKey: 'auth0Id',
+      as: 'orders',
     });
   }
 }
@@ -68,7 +68,7 @@ export const userModel = (sequelize: Sequelize): typeof User => {
       role: {
         type: DataTypes.STRING,
         allowNull: true,
-        defaultValue: "user",
+        defaultValue: 'user',
       },
       password: {
         type: DataTypes.STRING,
@@ -77,8 +77,8 @@ export const userModel = (sequelize: Sequelize): typeof User => {
     },
     {
       sequelize,
-      modelName: "User",
-      tableName: "users",
+      modelName: 'User',
+      tableName: 'users',
       timestamps: true,
     }
   );
