@@ -9,6 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Button } from '@mui/material';
 
 import axios from 'axios';
 
@@ -48,7 +49,7 @@ export function BlogView() {
           console.error('Error fetching order:', error);
         }
       } else {
-        console.log("Invalid token or token is empty")
+        console.log('Invalid token or token is empty');
       }
     };
     fetchOrder();
@@ -87,8 +88,10 @@ export function BlogView() {
                 <TableCell align="center">{row.foodId}</TableCell>
                 <TableCell align="right">{row.quantity}</TableCell>
                 <TableCell align="right">{row.createdAt}</TableCell>
-                <TableCell align="right" onClick={() => deleteFromCart(row.auth0Id, row.foodId)}>
-                  DeleteBtn
+                <TableCell align="right">
+                  <Button onClick={() => deleteFromCart(row.auth0Id, row.foodId)}>
+                    Delete Item
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}

@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from "express";
-import jwt, { JwtPayload } from "jsonwebtoken";
-import { idCheck } from "../controller/user.controller";
+import { Request, Response, NextFunction } from 'express';
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import { idCheck } from '../controller/user.controller';
 
 interface CustomJwtPayload extends JwtPayload {
   id: string;
@@ -15,18 +15,18 @@ export const authenticateToken = async (
   res: Response,
   next: NextFunction
 ) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
 
   if (!token) {
-    console.error("Access denied: Token is missing");
-    return res.status(401).json({ message: "Access denied" });
+    console.error('Access denied: Token is missing');
+    return res.status(401).json({ message: 'Access denied' });
   }
 
   jwt.verify(token, process.env.JWT_SECRET as string, (err, user) => {
     if (err) {
-      console.error("Token verification failed:", err);
-      return res.status(403).json({ message: "Invalid token" });
+      console.error('Token verification failed:', err);
+      return res.status(403).json({ message: 'Invalid token' });
     }
 
     (req as CustomRequest).user = user as CustomJwtPayload;

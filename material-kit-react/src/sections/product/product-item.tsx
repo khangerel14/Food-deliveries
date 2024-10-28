@@ -25,12 +25,12 @@ const style = {
 };
 
 export type ProductItemProps = {
-  id: string; 
+  id: string;
   imgUrl: string;
   name: string;
   description: string;
   price: number;
-  assessment: number; 
+  assessment: number;
   categoryId: number;
 };
 
@@ -38,11 +38,11 @@ export function ProductItem({ product }: { product: ProductItemProps }) {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
   const handleClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   const [img, setImg] = useState(product.imgUrl);
   const [name, setName] = useState(product.name);
@@ -59,13 +59,12 @@ export function ProductItem({ product }: { product: ProductItemProps }) {
         assessment,
         price,
       };
-
       const response = await axios.put(`http://localhost:8000/api/foods/put/${id}`, updatedProduct);
-      setOpen(false)
+      setOpen(false);
       return response.data;
     } catch (error) {
-      console.log("updating error", error);
-      return error
+      console.log('updating error', error);
+      return error;
     }
   };
 
@@ -91,9 +90,9 @@ export function ProductItem({ product }: { product: ProductItemProps }) {
       <Card>
         <Box sx={{ pt: '100%', position: 'relative' }}>{renderImg}</Box>
         <Stack spacing={2} sx={{ p: 3 }}>
-          <Stack display='flex'>
+          <Stack display="flex" alignItems="center">
             {product.name}
-            <Typography>{product.assessment}</Typography>
+            <Typography>{product.assessment} ⭐️</Typography>
           </Stack>
           <Box display="flex" alignItems="center" justifyContent="space-between">
             {renderPrice}
@@ -109,11 +108,17 @@ export function ProductItem({ product }: { product: ProductItemProps }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Box>
+          <Box sx={{ pt: 2 }}>
             <Typography>Picture:</Typography>
-            <OutlinedInput type='text' value={img} onChange={(e) => setImg(e.target.value)} placeholder='Product Picture' fullWidth/>
+            <OutlinedInput
+              type="text"
+              value={img}
+              onChange={(e) => setImg(e.target.value)}
+              placeholder="Product Picture"
+              fullWidth
+            />
           </Box>
-          <Box>
+          <Box sx={{ pt: 2 }}>
             <Typography>Name:</Typography>
             <OutlinedInput
               type="text"
@@ -121,9 +126,9 @@ export function ProductItem({ product }: { product: ProductItemProps }) {
               onChange={(e) => setName(e.target.value)}
               placeholder="Product Name"
               fullWidth
-              />
+            />
           </Box>
-          <Box>
+          <Box sx={{ pt: 2 }}>
             <Typography>Description:</Typography>
             <OutlinedInput
               type="text"
@@ -132,9 +137,9 @@ export function ProductItem({ product }: { product: ProductItemProps }) {
               placeholder="Product Description"
               fullWidth
               sx={{ mt: 2 }}
-              />
+            />
           </Box>
-          <Box>
+          <Box sx={{ pt: 2 }}>
             <Typography>Price:</Typography>
             <OutlinedInput
               type="number"
@@ -143,9 +148,9 @@ export function ProductItem({ product }: { product: ProductItemProps }) {
               placeholder="Product Price"
               fullWidth
               sx={{ mt: 2 }}
-              />
+            />
           </Box>
-          <Box>
+          <Box sx={{ pt: 2 }}>
             <Typography>Assessment:</Typography>
             <OutlinedInput
               type="number"
@@ -154,9 +159,15 @@ export function ProductItem({ product }: { product: ProductItemProps }) {
               placeholder="Product Assessment"
               fullWidth
               sx={{ mt: 2 }}
-              />
+            />
           </Box>
-          <Button variant="outlined" sx={{ width: 160, mt: 1, alignItems: 'flex-end' }} onClick={() => updateFood(product.id)}>Submit</Button>        
+          <Button
+            variant="outlined"
+            sx={{ width: 160, mt: 1, alignItems: 'flex-end' }}
+            onClick={() => updateFood(product.id)}
+          >
+            Submit
+          </Button>
         </Box>
       </Modal>
     </>
