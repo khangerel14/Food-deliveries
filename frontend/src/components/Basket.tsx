@@ -1,12 +1,13 @@
-"use client";
+'use client';
 
-import { Basketsvg } from "@/images";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import { useContext } from "react";
-import { useRouter } from "next/navigation";
-import { BasketContext } from "@/context/BasketContext";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import { useContext } from 'react';
+import { useRouter } from 'next/navigation';
+import { BasketContext } from '@/context/BasketContext';
+import toast, { Toast } from 'react-hot-toast';
 
 type FoodItem = {
   id: number;
@@ -39,7 +40,7 @@ export const Basket = () => {
     try {
       await addToCart(foodId.toString(), quantity);
     } catch (error) {
-      console.error("Error adding to cart:", error);
+      console.error('Error adding to cart:', error);
     }
   };
 
@@ -62,66 +63,66 @@ export const Basket = () => {
   }
 
   return (
-    <div className="flex flex-col justify-center items-start gap-20 w-[1230px] mx-auto py-20 pt-32 max-xl:w-full">
-      <div className="flex items-center flex-col w-[1230px] mx-auto max-md:items-center max-xl:w-full max-xl:px-10 max-sm:px-2">
-        <div className="w-full flex justify-between gap-2 items-center mb-10">
+    <div className='flex flex-col justify-center items-start gap-20 w-[1230px] mx-auto py-20 pt-32 max-xl:w-full'>
+      <div className='flex items-center flex-col w-[1230px] mx-auto max-md:items-center max-xl:w-full max-xl:px-10 max-sm:px-2'>
+        <div className='w-full flex justify-between gap-2 items-center mb-10'>
           <button
-            onClick={() => router.push("/dashboard", { scroll: false })}
-            className="flex items-center"
+            onClick={() => router.push('/dashboard', { scroll: false })}
+            className='flex items-center'
           >
             <KeyboardBackspaceIcon />
             Back
           </button>
           <button
-            className="flex gap-4 px-4 p-3 bg-[#F91944] text-white rounded-full w-48 items-center justify-center"
-            onClick={() => router.push("/order", { scroll: false })}
+            className='flex gap-4 px-4 p-3 bg-[#F91944] text-white rounded-full w-48 items-center justify-center'
+            onClick={() => router.push('/order', { scroll: false })}
           >
-            <Basketsvg />
+            <ShoppingCartIcon sx={{ color: 'white' }} />
             Move to Order
           </button>
         </div>
         {cartItemsArray.length > 0 ? (
-          <div className="max-xl:w-full w-[1230px] flex flex-col gap-10">
+          <div className='max-xl:w-full w-[1230px] flex flex-col gap-10'>
             {cartItemsArray.map((item: CartItem) => (
               <div
-                className="flex justify-between items-center w-full max-lg:flex-col-reverse max-lg:gap-10"
+                className='flex justify-between items-center w-full max-lg:flex-col-reverse max-lg:gap-10'
                 key={item.id}
               >
-                <div className="flex flex-col gap-7 max-lg:text-center max-lg:items-center">
-                  <div className="flex flex-col gap-4 w-96">
-                    <h1 className="text-4xl text-gray-700 font-semibold">
+                <div className='flex flex-col gap-7 max-lg:text-center max-lg:items-center'>
+                  <div className='flex flex-col gap-4 w-96'>
+                    <h1 className='text-4xl text-gray-700 font-semibold'>
                       {item.name}
                     </h1>
-                    <p className="text-gray-600">{item.description}</p>
+                    <p className='text-gray-600'>{item.description}</p>
                   </div>
-                  <div className="flex gap-6 items-center justify-center lg:justify-start">
-                    <p className="font-bold text-3xl">
+                  <div className='flex gap-6 items-center justify-center lg:justify-start'>
+                    <p className='font-bold text-3xl'>
                       {item.qty * item.price}₮
                     </p>
-                    <div className="p-2 px-4 rounded-full border flex items-center justify-start">
+                    <div className='p-2 px-4 rounded-full border flex items-center justify-start'>
                       <button
-                        className="mr-5 bg-[#f91944] rounded-full h-9 w-9"
+                        className='mr-5 bg-[#f91944] rounded-full h-9 w-9'
                         onClick={() => removeFromCart(item.id)}
                         aria-label={`Remove ${item.name} from cart`}
                       >
-                        <RemoveIcon sx={{ color: "white" }} />
+                        <RemoveIcon sx={{ color: 'white' }} />
                       </button>
                       {item.qty}
                       <button
-                        className="ml-5 bg-[#F91944] rounded-full h-9 w-9"
+                        className='ml-5 bg-[#F91944] rounded-full h-9 w-9'
                         onClick={() => addToQty(item.id)}
                         aria-label={`Add ${item.name} to quantity`}
                       >
-                        <AddIcon sx={{ color: "white" }} />
+                        <AddIcon sx={{ color: 'white' }} />
                       </button>
                     </div>
                   </div>
                   <div>
                     <button
-                      className="flex gap-4 px-4 p-3 bg-[#F91944] text-white rounded-full w-44 items-center justify-center"
+                      className='flex gap-4 px-4 p-3 bg-[#F91944] text-white rounded-full w-44 items-center justify-center'
                       onClick={() => handleAddToCart(item.id, item.qty)}
                     >
-                      <Basketsvg />
+                      <ShoppingCartIcon sx={{ color: 'white' }} />
                       Add to Cart
                     </button>
                   </div>
@@ -132,7 +133,7 @@ export const Basket = () => {
                     alt={item.name}
                     width={700}
                     height={500}
-                    className="rounded-full h-[500px] w-[500px]"
+                    className='rounded-full h-[500px] w-[500px]'
                   />
                 </div>
               </div>

@@ -14,16 +14,16 @@ export const enum HTTP_STATUS_CODES {
 
 //status
 export const enum STATUS {
-  ACTIVE = "active",
-  INACTIVE = "inactive",
-  DELETED = "deleted",
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  DELETED = 'deleted',
 }
 
 export const enum STATUS_FILTER {
-  ALL = "all",
-  ACTIVE = "active",
-  INACTIVE = "inactive",
-  DELETED = "deleted",
+  ALL = 'all',
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  DELETED = 'deleted',
 }
 
 export const STATUS_ENUM: STATUS[] = [
@@ -34,41 +34,41 @@ export const STATUS_ENUM: STATUS[] = [
 
 //role
 export const enum ROLES {
-  ADMIN = "admin",
-  USER = "user",
+  ADMIN = 'admin',
+  USER = 'user',
 }
 
 export const ROLES_ENUM: ROLES[] = [ROLES.ADMIN, ROLES.USER];
 
 //хүйс
 export const enum GENDER {
-  MALE = "male",
-  FEMALE = "female",
-  OTHER = "other",
+  MALE = 'male',
+  FEMALE = 'female',
+  OTHER = 'other',
 }
 
 export const GENDER_ENUM = [GENDER.MALE, GENDER.FEMALE, GENDER.OTHER];
 
 export const enum ACTION_TYPE {
-  CREATE = "create",
-  UPDATE = "update",
-  VERIFY = "verify",
-  LOGIN = "login",
+  CREATE = 'create',
+  UPDATE = 'update',
+  VERIFY = 'verify',
+  LOGIN = 'login',
 }
 
 // invoice
 export enum INVOICE_STATUS {
-  PAID = "paid",
-  NOT_PAID = "not_paid",
-  PENDING = "pending",
+  PAID = 'paid',
+  NOT_PAID = 'not_paid',
+  PENDING = 'pending',
 }
 
 export enum INVOICE_STATUS_FILTER {
-  ALL = "all",
-  PAID = "paid",
-  NOT_PAID = "not_paid",
-  PENDING = "pending",
-  EXPIRED = "expired",
+  ALL = 'all',
+  PAID = 'paid',
+  NOT_PAID = 'not_paid',
+  PENDING = 'pending',
+  EXPIRED = 'expired',
 }
 
 export const INVOICE_STATUS_ENUM = [
@@ -79,10 +79,10 @@ export const INVOICE_STATUS_ENUM = [
 
 // order
 export enum ORDER_STATUS {
-  BASKET = "basket",
-  CANCELLED = "cancelled",
-  VERIFIED = "verified",
-  PAID = "paid",
+  BASKET = 'basket',
+  CANCELLED = 'cancelled',
+  VERIFIED = 'verified',
+  PAID = 'paid',
 }
 
 export const ORDER_STATUS_ENUM = [
@@ -93,17 +93,17 @@ export const ORDER_STATUS_ENUM = [
 ];
 
 export enum PAY_TYPES {
-  QPAY = "qpay",
+  QPAY = 'qpay',
 }
 
 export enum PAY_TYPES_FILTER {
-  ALL = "all",
-  QPAY = "qpay",
+  ALL = 'all',
+  QPAY = 'qpay',
 }
 
 export enum QPAY_INVOICE_STATUS {
-  OPEN = "OPEN",
-  PAID = "PAID",
+  OPEN = 'OPEN',
+  PAID = 'PAID',
 }
 
 /***
@@ -111,10 +111,10 @@ export enum QPAY_INVOICE_STATUS {
  */
 
 export enum QPAY_URLS {
-  LOGIN = "v2/auth/token",
-  CREATE_INVOICE = "v2/invoice",
-  CHECK_INVOICE = "v2/payment/check",
-  BASE_URL = "https://merchant-sandbox.qpay.mn",
+  LOGIN = 'v2/auth/token',
+  CREATE_INVOICE = 'v2/invoice',
+  CHECK_INVOICE = 'v2/payment/check',
+  BASE_URL = 'https://merchant-sandbox.qpay.mn',
 }
 
 export enum QPAY_LIMIT {

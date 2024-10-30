@@ -1,8 +1,6 @@
 'use client';
 
 import axios from 'axios';
-import { useUser } from '@auth0/nextjs-auth0/client';
-import { usePathname } from 'next/navigation';
 import {
   createContext,
   useState,
@@ -20,10 +18,6 @@ type FoodItem = {
   imgUrl: string;
   assessment: number;
   categoryId: number;
-};
-
-type User = {
-  sub: string;
 };
 
 type StoreContextProps = {
@@ -67,6 +61,7 @@ const StoreContextProvider = ({ children }: StoreProviderProps) => {
     const currentHour = new Date().getHours();
     setCanOrder(currentHour >= 9 && currentHour < 23);
   };
+
   useEffect(() => {
     const loadCartItems = () => {
       try {
@@ -95,11 +90,8 @@ const StoreContextProvider = ({ children }: StoreProviderProps) => {
     setLoading(true);
     setErrorMessage(null);
     try {
-      const url = `http://localhost:8000/api/foods?page=${page}&limit=${limit}${
-        categoryId !== undefined ? `&categoryId=${categoryId}` : ''
-      }`;
+      const url = `http://localhost:8000/api/foods?page=${page}&limit=${limit}&categoryId=${categoryId}`;
       const response = await axios.get(url);
-
       if (response.data.success) {
         setFoodData(response.data.foods);
         setTotalItems(response.data.totalCount);

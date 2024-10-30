@@ -39,6 +39,7 @@ export class User
       foreignKey: 'auth0Id',
       as: 'orders',
     });
+    User.hasMany(models.Cart, { foreignKey: 'auth0Id', as: 'carts' });
   }
 }
 

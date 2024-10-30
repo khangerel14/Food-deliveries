@@ -1,13 +1,13 @@
-import dotenv from "dotenv";
-import i18n from "i18n";
+import dotenv from 'dotenv';
+import i18n from 'i18n';
 
-import { INVOICE_STATUS, QPAY_INVOICE_STATUS, QPAY_URLS } from "../consts.js";
+import { INVOICE_STATUS, QPAY_INVOICE_STATUS, QPAY_URLS } from '../consts.js';
 import {
   ICreateQpayInvoice,
   IQpayAuthResponse,
   IQpayBodyCreateInvoice,
   IQpayCheckInvoice,
-} from "../interface/Qpay";
+} from '../interface/Qpay';
 
 dotenv.config();
 const { QPAY_PASSWORD, QPAY_USERNAME, QPAY_CALLBACK, QPAY_INVOICE_CODE } =
@@ -18,7 +18,7 @@ export const getTokenQpay: () => Promise<string> =
     try {
       const auth = `Basic ${Buffer.from(
         `${QPAY_USERNAME}:${QPAY_PASSWORD}`
-      ).toString("base64")}`;
+      ).toString('base64')}`;
 
       const { access_token }: IQpayAuthResponse = await fetchData(
         auth,
@@ -28,8 +28,8 @@ export const getTokenQpay: () => Promise<string> =
 
       return `Bearer ${access_token}`;
     } catch (err) {
-      console.log(err, "get_token_qpay");
-      return "";
+      console.log(err, 'get_token_qpay');
+      return '';
     }
   };
 
@@ -38,9 +38,9 @@ export const createQpayInvoice = async (
 ): Promise<any> => {
   const { amount, user_id, code, invoice_id } = doc;
   const accessToken: string = await getTokenQpay();
-  if (!QPAY_CALLBACK) throw new Error(i18n.__("error.not_fount.callback_url"));
+  if (!QPAY_CALLBACK) throw new Error(i18n.__('error.not_fount.callback_url'));
   if (!QPAY_INVOICE_CODE)
-    throw new Error(i18n.__("error.not_fount.qpay_invoice_code"));
+    throw new Error(i18n.__('error.not_fount.qpay_invoice_code'));
 
   const body: IQpayBodyCreateInvoice = {
     invoice_code: QPAY_INVOICE_CODE,
@@ -87,11 +87,11 @@ export const fetchData = async (
   let body: any = {};
   if (data) body = data;
   const response: any = await fetch(decodeURI(`${QPAY_URLS.BASE_URL}/${url}`), {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: auth,
-      redirect: "follow",
+      redirect: 'follow',
     },
     body: JSON.stringify(body),
   })

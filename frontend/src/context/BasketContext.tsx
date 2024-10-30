@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   createContext,
@@ -7,9 +7,10 @@ import {
   useEffect,
   Dispatch,
   SetStateAction,
-} from "react";
-import axios from "axios";
-import { useUser } from "@auth0/nextjs-auth0/client";
+} from 'react';
+import axios from 'axios';
+import { useUser } from '@auth0/nextjs-auth0/client';
+import toast from 'react-hot-toast';
 
 type FoodItem = {
   id: number;
@@ -50,11 +51,11 @@ const BasketContextProvider = ({ children }: BasketProviderProps) => {
 
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/foods/multiple?ids=${ids.join(",")}`
+        `http://localhost:8000/api/foods/multiple?ids=${ids.join(',')}`
       );
       setFoodData(response.data.foods);
     } catch (error) {
-      console.error("Error fetching foods:", error);
+      console.error('Error fetching foods:', error);
     }
   };
 
@@ -64,17 +65,17 @@ const BasketContextProvider = ({ children }: BasketProviderProps) => {
   }, [cartItems]);
 
   useEffect(() => {
-    const storedCartItems = localStorage.getItem("cartItems");
+    const storedCartItems = localStorage.getItem('cartItems');
     if (storedCartItems) {
       setCartItems(JSON.parse(storedCartItems));
     } else {
-      localStorage.removeItem("cartItems");
+      localStorage.removeItem('cartItems');
     }
   }, []);
 
   useEffect(() => {
     if (Object.keys(cartItems).length > 0) {
-      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
     }
   }, [cartItems]);
 
@@ -86,17 +87,19 @@ const BasketContextProvider = ({ children }: BasketProviderProps) => {
   const addToCart = async (foodId: string, quantity: number) => {
     try {
       if (user && user.sub) {
-        await axios.post("http://localhost:8000/api/cart", {
+        const response = await axios.post('http://localhost:8000/api/cart', {
           foodId,
           quantity,
           auth0Id: user.sub,
           name: user.nickname,
         });
+        toast.success('Added');
+        console.log('Added to cart:', response.data);
       } else {
-        console.error("User is not authenticated");
+        console.error('User is not authenticated');
       }
     } catch (error) {
-      console.error("Error adding to cart:", error);
+      console.error('Error adding to cart:', error);
     }
   };
 
@@ -129,18 +132,18 @@ const BasketContextProvider = ({ children }: BasketProviderProps) => {
           const { [id]: _, ...rest } = prev;
 
           if (Object.keys(rest).length === 0) {
-            localStorage.removeItem("cartItems");
+            localStorage.removeItem('cartItems');
           } else {
-            localStorage.setItem("cartItems", JSON.stringify(rest));
+            localStorage.setItem('cartItems', JSON.stringify(rest));
           }
 
           return rest;
         });
       } else {
-        console.error("Error removing item from cart:", response.data);
+        console.error('Error removing item from cart:', response.data);
       }
     } catch (error) {
-      console.error("Error removing item from cart:", error);
+      console.error('Error removing item from cart:', error);
     }
   };
 

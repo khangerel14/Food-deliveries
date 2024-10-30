@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 type InvoiceData = {
   invoice_id: string;
@@ -28,10 +29,24 @@ export const InvoiceDisplay = () => {
     return <p>No invoice data available</p>;
   }
 
-  const checkOut = () => {
-    setTimeout(() => {
-      toast.error('Not paid!');
-    }, 1000);
+  const checkOut = async () => {
+    const checkoutData = {
+      invoice_id: 'invoice_12345',
+      status: 'pending',
+    };
+
+    try {
+      const response = await axios.post(
+        'http://localhost:8000/api/qpay/checkout-invoice',
+        checkoutData
+      );
+      setTimeout(() => {
+        toast.loading('It is pending...');
+      }, 1000);
+      return response.data;
+    } catch (error) {
+      console.log('Checkout Error:', error);
+    }
   };
 
   const qrImg = inv.data?.qr_image;
