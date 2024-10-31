@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Carousel,
@@ -7,19 +7,19 @@ import {
   Navbar,
   MenuBar,
   ChooseUs,
-} from "@/components";
-import StoreContextProvider from "@/context/StoreContext";
-import { White } from "@/images";
-import { Suspense } from "react";
+} from '@/components';
+import StoreContextProvider from '@/context/StoreContext';
+import { White } from '@/images';
+import { Suspense } from 'react';
 
 const Page = () => {
   return (
     <StoreContextProvider>
-      <div className="mx-auto flex items-center h-full">
+      <div className='mx-auto overflow-x-hidden overflow-y-hidden'>
         <White />
-        <div className="absolute inset-0 mx-auto h-fit">
+        <div className='absolute inset-0 mx-auto h-fit'>
           <Navbar />
-          <div className="flex justify-center h-[420px]">
+          <div className='flex justify-center h-fit'>
             <Carousel />
           </div>
         </div>

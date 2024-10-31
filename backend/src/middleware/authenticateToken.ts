@@ -32,11 +32,4 @@ export const authenticateToken = async (
     (req as CustomRequest).user = user as CustomJwtPayload;
     next();
   });
-
-  // const JwtPayload: any = jwt.verify(token, process.env.JWT_SECRET as string);
-
-  // const { id } = JwtPayload;
-  // const user = await idCheck(id);
-  // req.user = user;
-  // next();
 };

@@ -1,9 +1,9 @@
-import icon from "./../../public/bg.png";
+import icon from './../../public/bg.png';
 
 export const White = () => {
   return (
-    <div className="w-full">
-      <img src={icon.src} className="mx-auto" />
+    <div className='-z-20'>
+      <img src={icon.src} className='mx-auto' />
     </div>
   );
 };
