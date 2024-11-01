@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import toast, { Toaster } from 'react-hot-toast';
+import { toast, Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
@@ -35,20 +35,26 @@ export const InvoiceDisplay = () => {
       status: 'pending',
     };
 
+    const loadingToastId = toast.loading('It is pending...');
+
     try {
       const response = await axios.post(
         'http://localhost:8000/api/qpay/checkout-invoice',
         checkoutData
       );
+
       setTimeout(() => {
-        toast.loading('It is pending...');
-      }, 1000);
+        toast.dismiss(loadingToastId);
+        toast.error('Unpaid');
+      }, 2000);
+
       return response.data;
     } catch (error) {
+      toast.dismiss(loadingToastId);
+      toast.error('An error occurred during checkout');
       console.log('Checkout Error:', error);
     }
   };
-
   const qrImg = inv.data?.qr_image;
 
   const back = () => {

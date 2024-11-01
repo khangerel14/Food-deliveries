@@ -15,7 +15,7 @@ export const Paginations = ({
   limit: number;
   totalItems: number;
 }) => {
-  const { isActive }: any = useContext(StoreContext);
+  const { isActive } = useContext(StoreContext) || {};
   const router = useRouter();
   const totalPages = Math.ceil(totalItems / limit);
 

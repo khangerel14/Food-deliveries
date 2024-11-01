@@ -4,6 +4,7 @@ import { useContext, useEffect } from 'react';
 import { StoreContext } from '@/context/StoreContext';
 import { Paginations } from './Paginations';
 import { useSearchParams, useRouter } from 'next/navigation';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 type Food = {
   id: number;
@@ -15,6 +16,7 @@ type Food = {
 };
 
 export const Card = () => {
+  const { user }: any = useUser();
   const context = useContext(StoreContext);
   if (!context) {
     throw new Error('Card must be used within StoreContext');
@@ -67,6 +69,10 @@ export const Card = () => {
   }
 
   const handleToCart = (id: number) => {
+    if (!user) {
+      alert('You should log in to roder food!!');
+      return router.push('logIn', { scroll: false });
+    }
     try {
       addToCart(id);
       router.push('/basket', { scroll: false });

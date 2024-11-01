@@ -2,11 +2,49 @@
 
 import { useRouter } from 'next/navigation';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
+import { BasketContext } from '@/context/BasketContext';
+
+type FoodItem = {
+  id: number;
+  imgUrl: string;
+  name: string;
+  description: string;
+  price: number;
+};
+
+type CartItem = FoodItem & {
+  qty: number;
+};
+
+type CartItems = Record<string, number>;
 
 export const LogIn = () => {
   const router = useRouter();
   const { user, error, isLoading } = useUser();
+
+  const { cartItems, foodData } = useContext(BasketContext) || {};
+  const foodDataMap = new Map(
+    foodData?.map((item: FoodItem) => [item.id, item])
+  );
+
+  const cartItemsArray: CartItem[] = [];
+
+  if (cartItems) {
+    Object.entries(cartItems).forEach(([id, qty]) => {
+      const foodItem = foodDataMap.get(Number(id));
+      if (foodItem) {
+        cartItemsArray.push({
+          ...foodItem,
+          qty,
+        });
+      } else {
+        console.warn(`Food item with id ${id} not found in foodData`);
+      }
+    });
+  }
+
+  console.log(cartItemsArray);
 
   useEffect(() => {
     const createUser = async () => {
@@ -57,6 +95,7 @@ export const LogIn = () => {
             />
           )}
           <div className='font-bold text-2xl'>Hi, {user.name}!</div>
+
           <button className='border w-full bg-gray-100 p-3 text-gray-400 rounded-sm'>
             <a href='/api/auth/logout'>Log Out</a>
           </button>

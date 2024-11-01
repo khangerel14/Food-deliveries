@@ -4,10 +4,10 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
+import { useContext } from 'react';
 import { BasketContext } from '@/context/BasketContext';
-import toast, { Toast } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 type FoodItem = {
   id: number;
@@ -39,8 +39,10 @@ export const Basket = () => {
   const handleAddToCart = async (foodId: number, quantity: number) => {
     try {
       await addToCart(foodId.toString(), quantity);
+      toast.success('Successfully Ordered.');
     } catch (error) {
       console.error('Error adding to cart:', error);
+      toast.error('Error is encountered for adding.');
     }
   };
 
@@ -81,6 +83,7 @@ export const Basket = () => {
             Move to Order
           </button>
         </div>
+        <Toaster position='top-right' />
         {cartItemsArray.length > 0 ? (
           <div className='max-xl:w-full w-[1230px] flex flex-col gap-10'>
             {cartItemsArray.map((item: CartItem) => (

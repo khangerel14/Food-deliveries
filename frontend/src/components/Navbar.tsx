@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { useContext, useEffect, useState } from 'react';
 import { StoreContext } from '@/context/StoreContext';
-import LogoutIcon from '@mui/icons-material/Logout';
 import axios from 'axios';
+import { User } from './User';
 
 export const Navbar = () => {
   const { user, error } = useUser();
@@ -40,19 +40,6 @@ export const Navbar = () => {
     router.push('/logIn', { scroll: false });
   };
 
-  const logOut = async () => {
-    try {
-      if (cartData.length > 0) {
-        await axios.delete(`http://localhost:8000/api/cart/${user?.sub}`);
-      }
-      localStorage.removeItem('invoice');
-      localStorage.removeItem('cartItems');
-      await router.push('/api/auth/logout', { scroll: false });
-    } catch (error) {
-      console.error('Error during logout:', error);
-    }
-  };
-
   const homePage = () => {
     router.push('dashboard', { scroll: false });
   };
@@ -82,17 +69,7 @@ export const Navbar = () => {
                 {foodLength}
               </p>
             </button>
-            <img
-              src={user?.picture ?? '/default-avatar.png'}
-              alt='User avatar'
-              className='w-10 h-10 rounded-full'
-            />
-            <span className='text-[#565656] font-normal max-sm:hidden'>
-              {user.nickname}
-            </span>
-            <button onClick={logOut}>
-              <LogoutIcon sx={{ color: '#565656' }} />
-            </button>
+            <User cartData={cartData} />
           </div>
         ) : (
           <div className='flex items-center gap-5 font-light'>
