@@ -36,7 +36,7 @@ export const Order = () => {
         ...formData,
       });
       toast.success('Мэдээлэл амжилттай бүртгэгдлээ <3');
-      localStorage.setItem('address', JSON.stringify(data));
+      localStorage.setItem('address', JSON.stringify(formData));
       return data;
     } catch (error) {
       console.error(error);

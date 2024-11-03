@@ -7,7 +7,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
 import { BasketContext } from '@/context/BasketContext';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 
 type FoodItem = {
   id: number;
@@ -39,10 +39,8 @@ export const Basket = () => {
   const handleAddToCart = async (foodId: number, quantity: number) => {
     try {
       await addToCart(foodId.toString(), quantity);
-      toast.success('Successfully Ordered.');
     } catch (error) {
       console.error('Error adding to cart:', error);
-      toast.error('Error is encountered for adding.');
     }
   };
 

@@ -1,5 +1,4 @@
 import { useState, useCallback, useEffect } from 'react';
-
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Table from '@mui/material/Table';
@@ -10,54 +9,57 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
-
 import axios from 'axios';
-
-import { _posts } from 'src/_mock';
 import { DashboardContent } from 'src/layouts/dashboard';
 
-import { PostSort } from '../post-sort';
-import { PostSearch } from '../post-search';
-
-// ----------------------------------------------------------------------
+type OrderItem = {
+  id: number;
+  auth0Id: string;
+  foodId: number;
+  name: string;
+  quantity: number;
+  createdAt: string;
+};
 
 export function BlogView() {
-  const [sortBy, setSortBy] = useState('latest');
-  const [order, setOrder] = useState([]);
-  const deleteFromCart = async (user: string, id: number) => {
+  const [order, setOrder] = useState<OrderItem[]>([]);
+
+  const fetchOrder = useCallback(async () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const response = await axios.get('http://localhost:8000/api/cart/adminCart', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setOrder(response.data);
+      } catch (error) {
+        console.error('Error fetching order:', error);
+      }
+    } else {
+      console.log('Invalid token or token is empty');
+    }
+  }, []);
+
+  const deleteFromCart = useCallback(async (user: string, id: number) => {
     try {
       const response = await axios.delete(`http://localhost:8000/api/cart/${user}/${id}`);
-      return response;
+      if (response.status === 200) {
+        setOrder((prevOrder) =>
+          prevOrder.filter((item) => item.auth0Id !== user || item.foodId !== id)
+        );
+      } else {
+        console.error('Failed to delete item');
+      }
     } catch (error) {
       console.error(error);
-      return null;
     }
-  };
+  }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const fetchOrder = async () => {
-      if (token) {
-        try {
-          const response = await axios.get('http://localhost:8000/api/cart/adminCart', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          setOrder(response.data);
-        } catch (error) {
-          console.error('Error fetching order:', error);
-        }
-      } else {
-        console.log('Invalid token or token is empty');
-      }
-    };
     fetchOrder();
-  }, []);
-
-  const handleSort = useCallback((newSort: string) => {
-    setSortBy(newSort);
-  }, []);
+  }, [fetchOrder]);
 
   return (
     <DashboardContent>
@@ -79,7 +81,7 @@ export function BlogView() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {order.map((row: any) => (
+            {order.map((row) => (
               <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                 <TableCell component="th" scope="row">
                   {row.name}

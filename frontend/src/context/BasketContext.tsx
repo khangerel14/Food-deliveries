@@ -24,8 +24,8 @@ type FoodItem = {
 
 type BasketContextProps = {
   foodData: FoodItem[];
-  cartItems: { [key: string]: number };
-  setCartItems: Dispatch<SetStateAction<{ [key: string]: number }>>;
+  cartItems: Record<string, number>;
+  setCartItems: Dispatch<SetStateAction<Record<string, number>>>;
   addToCart: (foodId: string, quantity: number) => Promise<void>;
   addToQty: (id: number) => void;
   deleteFromCart: (id: number) => void;
@@ -77,11 +77,6 @@ const BasketContextProvider = ({ children }: BasketProviderProps) => {
     if (Object.keys(cartItems).length > 0) {
       localStorage.setItem('cartItems', JSON.stringify(cartItems));
     }
-  }, [cartItems]);
-
-  useEffect(() => {
-    const ids = Object.keys(cartItems);
-    foodById(ids);
   }, [cartItems]);
 
   const addToCart = async (foodId: string, quantity: number) => {

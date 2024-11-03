@@ -75,7 +75,7 @@ export const Card = () => {
     }
     try {
       addToCart(id);
-      router.push('/basket', { scroll: false });
+      // router.push('/basket', { scroll: false });
     } catch (error) {
       console.error('Error adding to cart:', error);
       alert('Failed to add item to cart. Please try again.');
