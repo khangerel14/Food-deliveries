@@ -24,6 +24,7 @@ export const User = ({ cartData }: { cartData: any }) => {
       }
       localStorage.removeItem('invoice');
       localStorage.removeItem('cartItems');
+      localStorage.removeItem('address');
       await router.push('/api/auth/logout', { scroll: false });
     } catch (error) {
       console.error('Error during logout:', error);
