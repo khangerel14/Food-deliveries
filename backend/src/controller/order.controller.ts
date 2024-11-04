@@ -44,39 +44,3 @@ export const deleteOrder = async (req: Request, res: Response) => {
     });
   }
 };
-
-// export const getOrderByCartAuth0Id = async (req: Request, res: Response) => {
-//   try {
-//     const { auth0Id } = req.params; // Extract auth0Id from the request parameters
-
-//     // Validate the presence of auth0Id
-//     if (!auth0Id) {
-//       return res.status(400).send({ message: "auth0Id is required" });
-//     }
-
-//     // Find the order where auth0Id matches
-//     const order = await Order.findOne({
-//       where: { auth0Id }, // Filter orders by auth0Id
-//       include: [
-//         {
-//           model: Cart, // Include the Cart model
-//           as: "cart", // Ensure the association name is correct
-//         },
-//       ],
-//     });
-
-//     // Check if the order was found
-//     if (!order) {
-//       return res.status(404).send({ message: "Order not found" });
-//     }
-
-//     // Respond with the found order
-//     return res.status(200).send(order);
-//   } catch (error) {
-//     // Handle any errors that occur during the database operation
-//     console.error("Error retrieving order:", error);
-//     return res.status(500).send({
-//       message: (error as Error).message || "Error retrieving order",
-//     });
-//   }
-// };

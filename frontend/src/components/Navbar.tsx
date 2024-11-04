@@ -65,7 +65,7 @@ export const Navbar = () => {
               onClick={() => router.push('/basket', { scroll: false })}
             >
               <Basketsvg />
-              <p className='absolute inset-0 -top-2 left-3 text-white h-5 w-5 pr-0 rounded-full bg-red-500 flex justify-center items-center'>
+              <p className='absolute inset-0 -top-2 left-3 text-white h-5 w-5 pr-0 rounded-full bg-[#F91944] flex justify-center items-center'>
                 {foodLength}
               </p>
             </button>

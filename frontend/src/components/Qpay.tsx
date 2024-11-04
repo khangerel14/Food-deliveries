@@ -69,10 +69,10 @@ export const InvoiceDisplay = () => {
         </button>
         <Toaster position='top-right' />
         <button
-          className='p-2 px-3 rounded-full bg-[#d52e1f] text-white'
+          className='p-2 px-3 rounded-full bg-[#F91944] text-white'
           onClick={checkOut}
         >
-          checkout
+          checkout Qpay
         </button>
       </div>
       <div>

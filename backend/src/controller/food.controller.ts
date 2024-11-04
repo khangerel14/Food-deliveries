@@ -61,6 +61,7 @@ export const findAll = async (req: Request, res: Response) => {
 
     const { count, rows } = await Food.findAndCountAll({
       where: condition,
+      order: [['createdAt', 'DESC']],
       offset,
       limit,
     });

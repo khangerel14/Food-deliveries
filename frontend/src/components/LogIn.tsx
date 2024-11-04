@@ -135,7 +135,7 @@ export const LogIn = () => {
           >
             Бүртгүүлэх
           </button>
-          <button className='border w-full bg-gray-100 p-3 text-gray-400 rounded-sm'>
+          <button className='border bg-gray-100 p-3 text-gray-400 rounded-sm'>
             <a href='/api/auth/login'>Log In</a>
           </button>
         </div>
